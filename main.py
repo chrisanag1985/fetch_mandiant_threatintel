@@ -39,7 +39,6 @@ else:
     filename_template = "output-"+start_datetime.strftime("%d%m%Y_%H%M%S")+"-"+end_datetime.strftime("%d%m%Y_%H%M%S")+".json"
     output_file = filename_template
 
-print(output_file)
 
 # LOAD CONFIG
 config = configparser.ConfigParser()

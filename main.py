@@ -15,7 +15,7 @@ parser.add_argument("-s","--start-datetime",type=str,help="Start Datetime of sea
 parser.add_argument("-e","--end-datetime",type=str,help="End Datetime of search | Format dd/mm/YYYY@HH:MM:SS | (Default: Now)")
 parser.add_argument("-m","--min-score",type=int,help="Minimum score of confidence (Default: 0)",default=0)
 parser.add_argument("-p","--page-size",type=int,help="The number of results to retrieve per page - Not limit the results to retrieve (Default: 1000)",default=1000)
-parser.add_argument("--exclude-osint",help="If True, then exclude OSINT from results",action="store_true" )
+parser.add_argument("--exclude-osint",help="Exclude OSINT from results",action="store_true" )
 parser.add_argument("--splunk-convert",help="Add the field `last_seen_index` for splunk consumption",action="store_true")
 parser.add_argument("-v","--verbose",help="Print Arguments",action="store_true")
 args= parser.parse_args()

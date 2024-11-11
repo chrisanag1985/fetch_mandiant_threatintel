@@ -1,6 +1,6 @@
 # Fetch Mandiant Threat Intel
 
-Python Script that download Mandiant Threat Intel to JSON file for offline consuption.
+Python Script that download Mandiant Threat Intel to JSON file for offline consumption.
 
 It can also adds an additional field to be ready for Splunk consumption
 

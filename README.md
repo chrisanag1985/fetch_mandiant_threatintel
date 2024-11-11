@@ -1,8 +1,8 @@
 # Fetch Mandiant Threat Intel
 
-Python Script that download Mandiant Threat Intel to JSON file for offline consumption.
+Python Script that downloads Mandiant Threat Intel to JSON file for offline consumption.
 
-It can also adds an additional field to be ready for Splunk consumption
+It can also adds an additional field to be ready for Splunk consumption.
 
 ## Dependencies
 
@@ -11,7 +11,7 @@ Install `mandiant_threatintel` dependency from https://github.com/google/mandian
 ## Configuration
 
 1. Create a `config.ini` is the same folder, based on the `config.ini.template`.
-2. Add your API Key/Secret without quotes
+2. Add your API Key/Secret without quotes.
 
 ## Usage
 
@@ -22,7 +22,7 @@ python3 main.py -h
 
 ## Output
 
-JSON file with Mandiant Threat Intel indicators
+JSON file with Mandiant Threat Intel indicators.
 
 
 ## For Splunk Consumption

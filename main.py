@@ -67,17 +67,81 @@ print(f"[+] Download Indicators from %s to %s"%(start_datetime,end_datetime))
 indicators = mati_client.Indicators.get_list(start_epoch=start_datetime,end_epoch=end_datetime,minimum_mscore=args.min_score,exclude_osint=args.exclude_osint,page_size=args.page_size)
 
 
+# from Splunk Advantage App bin/input_module_mandiant_advantage_indicators.py
+def build_category_list(indicator) -> list:
+  categories = []
+  for source in indicator.sources:
+    for category in source.get('category'):
+      if category not in categories:
+        categories.append(category)
+  return categories
+
+
+def build_attribution_list(indicator, attribution_type: str) -> list:
+  attribution_list = []
+  if "attributed_associations" not in indicator._api_response:
+    return attribution_list
+
+  for assoc in indicator._api_response.get('attributed_associations'):
+    if assoc.get('type') == attribution_type:
+      attribution_list.append(f"{assoc.get('id')}||{assoc.get('name')}")
+
+  return attribution_list
+
+
+def build_campaign_list(indicator) -> list:
+  campaigns = []
+  if "campaigns" not in indicator._api_response:
+    return campaigns
+
+  for campaign in indicator.campaigns:
+    campaigns.append(f"{campaign.id}||{campaign.name}")
+
+  return campaigns
+
+
+def build_report_list(indicator) -> list:
+  reports = []
+  
+  for report in indicator.reports:
+    reports.append(report.report_id)
+  
+  return reports
+
+
+
+
+
 file = open(output_file,"w")
 print(f"[+] Start writing in file %s"%output_file)
-for obj_indicator in indicators:
+for indicator in indicators:
 
-    indicator_dict = obj_indicator.__dict__
-    indicator = indicator_dict["_api_response"]
+
+    event_data: dict = indicator._api_response
     if args.splunk_convert:
-        indicator["last_seen_index"] = indicator["last_seen"]
-    #print(vars(indicator))
+        event_data['last_seen_index'] = indicator._api_response.get('last_seen')
 
-    file.write(json.dumps(indicator)+"\n")
+        if indicator.type == "md5":
+            indicator._api_response['sha1'] = indicator.sha1
+            indicator._api_response['sha256'] = indicator.sha256
+
+        # Add category key
+        event_data['category'] = build_category_list(indicator)
+
+        # Add threat_actor key
+        event_data['threat_actor'] = build_attribution_list(indicator, "threat-actor")
+
+        # Add malware key
+        event_data['malware'] = build_attribution_list(indicator, "malware")
+
+        # Add campaign_list key
+        event_data['campaigns_list'] = build_campaign_list(indicator)
+
+        # Add reports_list key
+        event_data['reports_list'] = build_report_list(indicator)
+
+
+    file.write(json.dumps(event_data)+"\n")
 
 
 file.close()

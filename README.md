@@ -47,4 +47,4 @@ JSON file with Mandiant Threat Intel indicators.
 
 ## For Splunk Consumption
 
-Add flag `--splunk-convert` in order to add the extra field `last_seen_index` which is used from Mandiant Threat Intel App as timestamp.
+Add flag `--splunk-convert` to make transformations in order to be consumed from Mandiant Threat Intel App.

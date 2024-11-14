@@ -17,7 +17,27 @@ Install `mandiant_threatintel` dependency from https://github.com/google/mandian
 
 For more information type
 ```bash 
-python3 main.py -h
+$ python3 main.py  -h
+usage: main.py [-h] [-o OUTPUT_FILE] [-s START_DATETIME] [-e END_DATETIME] [-m MIN_SCORE] [-p PAGE_SIZE] [--exclude-osint] [--splunk-convert] [-v]
+
+Download Mandiant Threat Intelligence Through API
+
+options:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+                        Name of the Output file (Default: output-startdatetime-enddatetime.json)
+  -s START_DATETIME, --start-datetime START_DATETIME
+                        Start Datetime of search | Format dd/mm/YYYY@HH:MM:SS | (Default: Start of current day)
+  -e END_DATETIME, --end-datetime END_DATETIME
+                        End Datetime of search | Format dd/mm/YYYY@HH:MM:SS | (Default: Now)
+  -m MIN_SCORE, --min-score MIN_SCORE
+                        Minimum score of confidence (Default: 0)
+  -p PAGE_SIZE, --page-size PAGE_SIZE
+                        The number of results to retrieve per page - Not limit the results to retrieve (Default: 1000)
+  --exclude-osint       Exclude OSINT from results
+  --splunk-convert      Add the field `last_seen_index` for splunk consumption
+  -v, --verbose         Print Arguments
+
 ```
 
 ## Output

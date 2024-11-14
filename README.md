@@ -35,9 +35,8 @@ options:
   -p PAGE_SIZE, --page-size PAGE_SIZE
                         The number of results to retrieve per page - Not limit the results to retrieve (Default: 1000)
   --exclude-osint       Exclude OSINT from results
-  --splunk-convert      Add the field `last_seen_index` for splunk consumption
+  --splunk-convert      Make transformations for splunk consumption
   -v, --verbose         Print Arguments
-
 ```
 
 ## Output

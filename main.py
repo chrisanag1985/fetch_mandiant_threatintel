@@ -2,6 +2,7 @@ import mandiant_threatintel
 import json
 import configparser
 import argparse
+import sys
 from datetime import datetime
 
 # ARGPARSE CONFIGURATOR
@@ -114,6 +115,7 @@ def build_report_list(indicator) -> list:
 
 file = open(output_file,"w")
 print(f"[+] Start writing in file %s"%output_file)
+count = 0
 for indicator in indicators:
 
 
@@ -142,8 +144,11 @@ for indicator in indicators:
 
 
     file.write(json.dumps(event_data)+"\n")
+    count = count + 1
+    sys.stdout.write("\r Indicators processed: "+str(count))
+    sys.stdout.flush()
 
-
+print("\n")
 file.close()
 print("[+] Writing Ended")
 print("[+] Exit")
